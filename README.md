@@ -2,7 +2,6 @@
 
 A **multi-agent supply-chain simulation** using [JADE](https://jade.tilab.com/) (FIPA-ACL, Directory Facilitator) and a **JavaFX** desktop UI. Customers request quotes and purchase multiple product lines from a **retailer**. When inventory falls below a threshold, the retailer **restocks** by soliciting **proposals** from suppliers and couriers, then coordinates payment through a **bank escrow** until delivery is confirmed.
 
----
 
 ## Overview
 
@@ -13,7 +12,6 @@ The system models two channels of interaction:
 
 The UI presents **two log tabs** so shop-floor traffic and procurement or logistics traffic stay easy to follow.
 
----
 
 ## Architecture
 
@@ -28,7 +26,6 @@ The UI presents **two log tabs** so shop-floor traffic and procurement or logist
 
 Agents emit structured logs through `SimLog` and the bus; the UI subscribes once and drains two queues on the JavaFX application thread.
 
----
 
 ## Requirements
 
@@ -37,7 +34,6 @@ Agents emit structured logs through `SimLog` and the bus; the UI subscribes once
 | **JDK** | **25** (`maven.compiler.release` in `pom.xml`). To build with another JDK, change `<release>` and align OpenJFX versions if necessary. |
 | **Maven** | Not required on `PATH`; the repository ships the **Maven Wrapper** (`./mvnw`, `mvnw.cmd`). |
 
----
 
 ## JADE library (bundled layout)
 
@@ -49,7 +45,6 @@ lib/m2/com/tilab/jade/jade/4.6.0/jade-4.6.0.jar
 
 The version must match `jade.version` in `pom.xml` (currently **4.6.0**). Download the matching binary from the [JADE distribution](https://jade.tilab.com/), create the directory tree if needed, and place the file there. Maven then resolves `com.tilab.jade:jade` from the `file:${project.basedir}/lib/m2` repository declared in `pom.xml`.
 
----
 
 ## Build
 
@@ -71,7 +66,6 @@ Run tests:
 ./mvnw test
 ```
 
----
 
 ## Run
 
@@ -102,7 +96,6 @@ mvnw.cmd exec:java
 5. **Clear logs** removes all lines from both tabs.
 6. **Add customer** (after start) spawns an additional customer agent; supply a label in the text field.
 
----
 
 ## Repository layout
 
@@ -114,7 +107,6 @@ src/main/java/             Java sources (agents, kernel, protocol, bus, UI)
 src/main/resources/      JavaFX CSS
 ```
 
----
 
 ## Implementation notes
 
@@ -122,7 +114,6 @@ src/main/resources/      JavaFX CSS
 - **Directory Facilitator:** suppliers and couriers register services; retailer procurement in this demo still targets **fixed local agent names** for predictability.
 - **OpenJFX** artifacts are resolved from Maven Central like any normal dependency.
 
----
 
 ## Troubleshooting
 
