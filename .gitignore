@@ -1,0 +1,44 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.flattened-pom.xml
+
+# IDE — IntelliJ / Eclipse / VS Code (local only)
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.classpath
+.project
+.settings/
+.factorypath
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Java / JVM dumps
+hs_err_pid*
+replay_pid*
+*.hprof
+*.class
+
+# Logs / temp
+*.log
+*.tmp
+*.swp
+*~
+
+# JADE
+APDescription.txt
+MTPs-Main-Container.txt

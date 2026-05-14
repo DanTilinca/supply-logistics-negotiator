@@ -1,0 +1,153 @@
+/* Supply chain demo — calm, readable UI */
+
+.root {
+  -fx-font-family: "Segoe UI", "Inter", system-ui, sans-serif;
+  -fx-font-size: 15px;
+  -fx-background-color: linear-gradient(to bottom, #f1f5f9 0%, #e8eef5 100%);
+}
+
+/* Toolbar */
+.toolbar {
+  -fx-spacing: 12;
+  -fx-padding: 16 18 14 18;
+  -fx-alignment: center-left;
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 10;
+  -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.06), 8, 0, 0, 2);
+}
+.toolbar .label {
+  -fx-text-fill: #475569;
+  -fx-font-weight: 600;
+}
+
+.button {
+  -fx-font-size: 14px;
+  -fx-padding: 10 18;
+  -fx-background-radius: 8;
+  -fx-cursor: hand;
+}
+
+.btn-primary {
+  -fx-background-color: linear-gradient(to bottom, #14b8a6, #0d9488);
+  -fx-text-fill: white;
+  -fx-font-weight: 600;
+}
+
+.btn-primary:hover {
+  -fx-background-color: linear-gradient(to bottom, #2dd4bf, #14b8a6);
+}
+
+.btn-secondary {
+  -fx-background-color: #f1f5f9;
+  -fx-text-fill: #334155;
+  -fx-border-color: #cbd5e1;
+  -fx-border-radius: 8;
+  -fx-border-width: 1;
+}
+
+.btn-secondary:hover {
+  -fx-background-color: #e2e8f0;
+}
+
+.btn-danger {
+  -fx-background-color: linear-gradient(to bottom, #f87171, #ef4444);
+  -fx-text-fill: white;
+  -fx-font-weight: 600;
+}
+
+.btn-danger:hover {
+  -fx-background-color: linear-gradient(to bottom, #fca5a5, #f87171);
+}
+
+.combo-box {
+  -fx-font-size: 14px;
+  -fx-background-radius: 8;
+  -fx-padding: 4 8;
+}
+
+.combo-box .list-cell {
+  -fx-font-size: 14px;
+}
+
+.text-field {
+  -fx-font-size: 14px;
+  -fx-padding: 10 14;
+  -fx-background-radius: 8;
+  -fx-border-color: #cbd5e1;
+  -fx-border-radius: 8;
+  -fx-border-width: 1;
+  -fx-background-color: #ffffff;
+}
+
+.text-field:focused {
+  -fx-border-color: #14b8a6;
+}
+
+/* Hint under toolbar */
+.hint-label {
+  -fx-font-size: 14px;
+  -fx-text-fill: #64748b;
+  -fx-padding: 0 18 12 18;
+  -fx-wrap-text: true;
+  -fx-line-spacing: 2px;
+}
+
+/* Two-pane log tabs */
+.log-tab-pane {
+  -fx-padding: 0 0 8 0;
+}
+.log-tab-pane .tab-header-area .tab {
+  -fx-font-size: 14px;
+  -fx-font-weight: 600;
+}
+
+/* Log card */
+.log-card {
+  -fx-padding: 0 18 18 18;
+}
+
+.log-list {
+  -fx-font-family: "Cascadia Code", "Consolas", "JetBrains Mono", "Courier New", monospace;
+  -fx-font-size: 15px;
+  -fx-background-color: #0f172a;
+  -fx-control-inner-background: #0f172a;
+  -fx-border-color: #334155;
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+  -fx-padding: 8;
+}
+
+.log-list .list-cell {
+  -fx-background-color: transparent;
+  -fx-padding: 8 12 8 12;
+  -fx-text-fill: #cbd5e1;
+  -fx-wrap-text: true;
+}
+.log-list .list-cell:selected {
+  -fx-background-color: #1e3a5f;
+}
+
+/* Log line colours (applied from Java via style class) */
+.log-line-default {
+  -fx-text-fill: #cbd5e1;
+}
+
+.log-line-acl {
+  -fx-text-fill: #7dd3fc;
+}
+
+.log-line-bank {
+  -fx-text-fill: #c4b5fd;
+}
+
+.log-line-retailer {
+  -fx-text-fill: #5eead4;
+}
+
+.log-line-warn {
+  -fx-text-fill: #fcd34d;
+}
+
+.log-line-error {
+  -fx-text-fill: #fca5a5;
+}
