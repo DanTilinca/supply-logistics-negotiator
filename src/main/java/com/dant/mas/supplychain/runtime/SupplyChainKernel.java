@@ -25,16 +25,22 @@ public class SupplyChainKernel {
     this.bus = Objects.requireNonNull(bus);
   }
 
-  public synchronized void start(double speed) throws StaleProxyException {
+  public synchronized void start(double speed, boolean showJadeGui) throws StaleProxyException {
     if (main != null) {
       return;
     }
     Runtime rt = Runtime.instance();
     Profile p = new ProfileImpl(false);
-    p.setParameter(Profile.GUI, "false");
+    p.setParameter(Profile.GUI, showJadeGui ? "true" : "false");
     p.setParameter(Profile.MAIN, "true");
     main = rt.createMainContainer(p);
-    bus.log("JADE started (main container + directory facilitator).", LogChannel.B2B);
+    if (showJadeGui) {
+      bus.log(
+          "JADE started with management GUI (Tools menu — e.g. Sniffer).",
+          LogChannel.B2B);
+    } else {
+      bus.log("JADE started (main container + directory facilitator).", LogChannel.B2B);
+    }
 
     Object[] base = new Object[] {bus, speed};
     create("bank", BankAgent.class.getName(), base);

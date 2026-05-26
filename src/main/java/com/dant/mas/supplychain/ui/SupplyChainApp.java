@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -72,13 +73,19 @@ public class SupplyChainApp extends Application {
     speed.getItems().addAll("1x", "2x", "4x");
     speed.setValue("1x");
 
+    CheckBox showJadeGui = new CheckBox("Show JADE tools");
+    showJadeGui.getStyleClass().add("jade-tools-checkbox");
+    showJadeGui.setTooltip(
+        new javafx.scene.control.Tooltip(
+            "Opens the JADE Agent Management window (Sniffer and other tools from its menu)."));
+
     Button start = new Button("Start");
     start.getStyleClass().addAll("button", "btn-primary");
-    start.setOnAction(e -> startKernel(speed));
+    start.setOnAction(e -> startKernel(speed, showJadeGui));
 
     Button stop = new Button("Stop");
     stop.getStyleClass().addAll("button", "btn-danger");
-    stop.setOnAction(e -> stopKernel());
+    stop.setOnAction(e -> stopKernel(showJadeGui));
 
     Button clear = new Button("Clear logs");
     clear.getStyleClass().addAll("button", "btn-secondary");
@@ -127,6 +134,7 @@ public class SupplyChainApp extends Application {
             start,
             stop,
             clear,
+            showJadeGui,
             new Region() {
               {
                 HBox.setHgrow(this, Priority.ALWAYS);
@@ -162,14 +170,14 @@ public class SupplyChainApp extends Application {
     root.setTop(top);
     root.setCenter(tabs);
 
-    Scene scene = new Scene(root, 920, 640);
+    Scene scene = new Scene(root, 1120, 640);
     var css = getClass().getResource("styles.css");
     if (css != null) {
       scene.getStylesheets().add(css.toExternalForm());
     }
     stage.setTitle("Supply Logistics Negotiator");
     stage.setScene(scene);
-    stage.setMinWidth(640);
+    stage.setMinWidth(800);
     stage.setMinHeight(480);
     stage.show();
 
@@ -178,7 +186,7 @@ public class SupplyChainApp extends Application {
           if (logDrainTimer != null) {
             logDrainTimer.stop();
           }
-          stopKernel();
+          stopKernel(showJadeGui);
           Platform.exit();
         });
   }
@@ -299,23 +307,31 @@ public class SupplyChainApp extends Application {
     view.scrollTo(view.getItems().size() - 1);
   }
 
-  private void startKernel(ComboBox<String> speedBox) {
+  private void startKernel(ComboBox<String> speedBox, CheckBox showJadeGuiBox) {
     if (kernel != null && kernel.isRunning()) {
       enqueueLog("Already running.", LogChannel.B2B);
       return;
     }
     double sp = parseSpeed(speedBox);
+    boolean jadeGui = showJadeGuiBox.isSelected();
+    showJadeGuiBox.setDisable(true);
     kernel = new SupplyChainKernel(bus);
     new Thread(
             () -> {
               try {
-                kernel.start(sp);
-                Platform.runLater(() -> hint.setText("Running."));
+                kernel.start(sp, jadeGui);
+                Platform.runLater(
+                    () ->
+                        hint.setText(
+                            jadeGui
+                                ? "Running. JADE management window should be open."
+                                : "Running."));
               } catch (Exception ex) {
                 Platform.runLater(
                     () -> {
                       enqueueLog("ERROR: " + ex.getMessage(), LogChannel.B2B);
                       kernel = null;
+                      showJadeGuiBox.setDisable(false);
                     });
               }
             },
@@ -331,11 +347,14 @@ public class SupplyChainApp extends Application {
     }
   }
 
-  private void stopKernel() {
+  private void stopKernel(CheckBox showJadeGuiBox) {
     if (kernel != null) {
       kernel.stop();
       kernel = null;
     }
     hint.setText("Stopped.");
+    if (showJadeGuiBox != null) {
+      showJadeGuiBox.setDisable(false);
+    }
   }
 }

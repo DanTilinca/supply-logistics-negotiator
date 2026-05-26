@@ -20,6 +20,11 @@
   -fx-font-weight: 600;
 }
 
+.jade-tools-checkbox {
+  -fx-font-size: 14px;
+  -fx-text-fill: #334155;
+}
+
 .button {
   -fx-font-size: 14px;
   -fx-padding: 10 18;
